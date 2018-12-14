@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 public class CaseController {
@@ -43,7 +44,22 @@ public class CaseController {
     public String processAdd(Model model, Case aCase) {
     	System.out.println(aCase);
     	aCase = associationBusiness.addCase(aCase);
-    	model.addAttribute("case", aCase);
+    	model.addAttribute("aCase", aCase);
+    	return "redirect:cases/"+aCase.getId();
+    }
+    
+    @GetMapping("/cases/edit/{id}")
+	public String edit(Model model,@PathVariable("id")long id) {
+		
+      	Case eCase=associationBusiness.getById(id);
+		model.addAttribute("eCase",eCase);
+		return "cases/editCase";
+	}
+
+    @PutMapping("/cases")
+    public String processEdit(Model model, Case aCase) {
+    	System.out.println(aCase);
+    	aCase = associationBusiness.updateCase(aCase);
     	return "redirect:cases/"+aCase.getId();
     }
     
