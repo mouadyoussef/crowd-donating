@@ -10,12 +10,12 @@
 <section class="page-title ptb-50">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col s12">
                 <h2>Cases</h2>
                 <ol class="breadcrumb">
                     <li><a th:href="@{/}">Home</a></li>
                     <li><a th:href="@{/cases}">Cases</a></li>
-                    <li class="active">Add</li>
+                    <li class="active">Update</li>
                 </ol>
             </div>
         </div>
@@ -27,9 +27,10 @@
         <div class="row">
             <div class="col s12">
                 <div class="row">
-                    <form th:action="@{/cases}" method="post" th:object="${aCase}"
-                          enctype="multipart/form-data"
-                          class="col s8 offset-s2">
+                    <form th:action="@{/cases}" th:method="put" th:object="${aCase}" id="update-form"
+                          enctype="multipart/form-data" class="col s8 offset-s2">
+                        <input type="hidden" id="id" name="id" th:value="${aCase.id}"/>
+                        <input type="hidden" id="slug" name="slug" th:value="${aCase.slug}"/>
                         <div class="input-field">
                             <input type="text" name="name" th:value="${aCase.name}" id="name"
                                    th:class="|validate ${errors.containsKey('name') ? 'invalid' : ''}|">
@@ -43,9 +44,8 @@
                             <label for="description">Description</label>
                         </div>
                         <div class="input-field">
-                            <!--<input type="date" name="deadLine" class="validate datepicker" id="deadline"-->
-                            <!--th:value="${#calendars.format(aCase.deadLine,'yyyy-MM-dd')}">-->
-                            <input type="text" class="validate datepicker" name="deadLine" id="deadline">
+                            <input type="text" class="validate datepicker" name="deadLine" id="deadline"
+                                   th:value="${#calendars.format(aCase.deadLine,'MMM dd, yyyy')}">
                             <label for="deadline">Dead line</label>
                         </div>
                         <div class="input-field">
@@ -54,6 +54,8 @@
                         </div>
                         <div class="input-field">
                             <select class="select2-tags" name="caseTypes" id="types" multiple="multiple">
+                                <option th:each="type:${aCase.types}" th:value="${type.label}"
+                                        th:text="${type.label}" selected></option>
                                 <option th:each="type:${types}" th:value="${type.label}"
                                         th:text="${type.label}"></option>
                             </select>
@@ -62,10 +64,10 @@
                         <div class="input-field file-field">
                             <div class="btn">
                                 <span><i class="material-icons">image</i></span>
-                                <input type="file" name="imageFile" id="image">
+                                <input type="file" name="imageFile" id="image" th:value="${aCase.image}">
                             </div>
                             <div class="file-path-wrapper">
-                                <input type="text" class="file-path validate" title="Image name">
+                                <input type="text" class="file-path validate" title="" th:value="${aCase.image}">
                             </div>
                         </div>
                         <div class="input-field file-field">
@@ -78,13 +80,30 @@
                                        placeholder="Upload one or more files">
                             </div>
                         </div>
-                        <div class="input-field display-flex">
-                            <div class="flex-1"></div>
-                            <button class="btn-large waves-effect waves-light">
-                                Submit <i class="material-icons right">send</i>
-                            </button>
-                        </div>
                     </form>
+                </div>
+            </div>
+            <div class="col s8 offset-s2">
+                <ul class="collection">
+                    <li class="collection-item" th:each="file:${aCase.files}">
+                        <!--<th:block th:text="${file.path}"/>-->
+                        <a th:href="@{'/files/cases/' + ${file.id}}" th:text="${file.path}" target="_blank"></a>
+                        <a class="delete-file" href="#"
+                           th:onclick="'event.preventDefault(); document.getElementById(\'delete-file-form-' + ${file.id} + '\').submit();'">
+                            <i class="material-icons red-text darken-1">close</i>
+                        </a>
+                        <form th:action="@{'/cases/files/' + ${file.id}}" th:method="delete"
+                              th:id="'delete-file-form-' + ${file.id}"></form>
+                    </li>
+                </ul>
+            </div>
+            <div class="col s8 offset-s2">
+                <div class="input-field display-flex">
+                    <div class="flex-1"></div>
+                    <button class="btn-large waves-effect waves-light"
+                            onclick="event.preventDefault(); document.getElementById('update-form').submit();">
+                        Submit <i class="material-icons right">send</i>
+                    </button>
                 </div>
             </div>
         </div>
