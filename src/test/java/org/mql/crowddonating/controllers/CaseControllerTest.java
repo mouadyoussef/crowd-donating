@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(MockitoJUnitRunner.class)
 class CaseControllerTest {
-
     private MockMvc mockMvc;
 
     @InjectMocks
