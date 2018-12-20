@@ -1,8 +1,10 @@
 package org.mql.crowddonating.models;
 
 import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class Case {
     private double amount;
 
     @Column
+//    @DateTimeFormat(pattern = "MMM dd, yyyy")
     private Date deadLine;
 
     @Column
@@ -39,13 +42,16 @@ public class Case {
     @JoinColumn(name = "association_id")
     private Association association;
 
-    @OneToMany(mappedBy = "aCase", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "aCase", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<File> files;
 
     @OneToMany(mappedBy = "aCase", fetch = FetchType.LAZY)
     private List<Donation> donations;
 
-    @ManyToMany
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
     @JoinTable(
             name = "case_type",
             joinColumns = @JoinColumn(name = "type_id"),
@@ -54,6 +60,9 @@ public class Case {
     private List<Type> types;
 
     public Case() {
+        this.association = new Association(1);
+        this.types = new ArrayList<>();
+//        this.types.add(new Type(1));
     }
 
     public void addDonation(Donation donation) {
@@ -62,6 +71,10 @@ public class Case {
 
     public void addFile(File file) {
         files.add(file);
+    }
+
+    public void addType(Type type) {
+        types.add(type);
     }
 
     public long getId() {
