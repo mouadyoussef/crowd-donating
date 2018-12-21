@@ -48,7 +48,7 @@ public class UserBusiness extends PublicServicesBusiness implements IUserService
     }
 
 	@Override
-	public Donor getDonorByID(long id) {
+	public Donor getDonorById(long id) {
 		return donorDao.getOne(id);
 	}
 

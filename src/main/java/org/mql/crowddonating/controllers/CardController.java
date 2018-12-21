@@ -30,7 +30,7 @@ public class CardController {
 	
 	@PostMapping("/cards")
 	public String formProcess(Model model,BankCard card) {
-		card.setDonor(userServices.getDonorByID(2));
+		card.setDonor(userServices.getDonorById(2));
 		donorBusiness.addBankCard(card);
 		return "redirect:/cases";
 	}

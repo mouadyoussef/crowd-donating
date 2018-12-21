@@ -11,7 +11,7 @@ public interface IUserServices {
     void deleteFile(long id, String path);
     
     /* *** user *** */
-    Donor getDonorByID(long id);
+    Donor getDonorById(long id);
    
     
 }
