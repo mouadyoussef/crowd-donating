@@ -21,17 +21,17 @@
 
 
 									<form th:action="@{/donor}" method="post"
-										th:object="${don}" 
+										th:object="${donation}" 
 										class="col s8 offset-s2">
 
 										<div class="input-field">
-											<input type="hidden" name="case" th:value="${don.case.id}"
+											<input type="hidden" name="case" th:value="${donation.case.id}"
 												id="idcase" required>
 										</div>
 
 
 										<div class="input-field">
-											<input type="number" name="amount" th:value="${don.amount}"
+											<input type="number" name="amount" th:value="${donation.amount}"
 												id="amount" required> <label for="amount">Amount</label>
 										</div>
 
@@ -45,14 +45,14 @@
 										 <label>Bank cards</label><br/>
 											<p>
 												<label th:each="card:${donor.bankCards}"> 
-													<input name="cardID"  type="radio" th:value="${card.id}" />
+													<input name="cardID"  type="radio" th:value="${card.id}" checked/>
 													<span th:text="${card.cardNumber + ' ' + card.id}"></span>
 													<br/>
 												</label>
 											</p>
 										</div>
 										
-		  								 <a th:href="@{/cards/new}">Donate now!</a>
+		  								 <a th:href="@{/cards/new}">Add bankCard </a>
 
 										<div class="input-field display-flex">
 											<div class="flex-1"></div>
@@ -61,11 +61,8 @@
 											</button>
 										</div>
 									</form>
-
-
-
-								</div>
 							</div>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -81,14 +78,14 @@
 							<div class="card-content p-0">
 								<div class="author-info-wrapper">
 									<div class="author-cover">
-										<img th:src="@{'/images/cases/' + ${don.case.image}}" alt="">
+										<img th:src="@{'/images/cases/' + ${donation.case.image}}" alt="">
 									</div>
 									<div class="author-avatar">
-										<img th:src="@{'/images/cases/' + ${don.case.image}}" alt="">
-										<h2 th:text="${don.case.name}"></h2>
-										<span th:text="${don.case.amount}"></span><br /> <span
-											th:text="${don.case.deadLine}"></span><br /> <span
-											th:text="${don.case.amount}"></span>
+										<img th:src="@{'/images/cases/' + ${donation.case.image}}" alt="">
+										<h2 th:text="${donation.case.name}"></h2>
+										<span th:text="${donation.case.amount}"></span><br /> <span
+											th:text="${donation.case.deadLine}"></span><br /> <span
+											th:text="${donation.case.amount}"></span>
 									</div>
 
 								</div>

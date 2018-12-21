@@ -23,38 +23,35 @@ public class DonationController {
 	@Autowired
 	@Qualifier("publicServicesBusiness")
 	private IPublicServices publicServices;
-	
+
 	@Autowired
 	@Qualifier("donorBusiness")
 	private IDonorBusiness donorBusiness;
-	
+
 	@Autowired
 	@Qualifier("userBusiness")
 	private IUserServices userServices;
-	
+
 	@GetMapping("/donor/donate/{slug}")
 	public String donateForm(Model model, @PathVariable String slug) {
-		
+
 		Case aCase = publicServices.getCaseBySlug(slug);
-		Donor donor =  userServices.getDonorById(2);
-		model.addAttribute("donor", donor);	
-		
-		
-		Donation don = new Donation();		
-		don.setCase(aCase);
-		
-		model.addAttribute("don",don);
-		
+		Donor donor = userServices.getDonorById(2);
+		model.addAttribute("donor", donor);
+
+		Donation donation = new Donation();
+		donation.setCase(aCase);
+
+		model.addAttribute("donation", donation);
+
 		return "donor/donate";
-		
+
 	}
-	
+
 	@PostMapping("/donor")
-	public String processDonate(Model model, Donation don) {
-		donorBusiness.addDon(don);
-		return "redirect:/cases/"+don.getCase().getSlug();
+	public String processDonate(Model model, Donation donation) {
+		donorBusiness.addDon(donation);
+		return "redirect:/cases/" + donation.getCase().getSlug();
 	}
-	
-	
-	
+
 }

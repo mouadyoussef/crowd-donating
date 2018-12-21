@@ -13,29 +13,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CardController {
-	
+
 	@Autowired
 	@Qualifier("userBusiness")
 	private IUserServices userServices;
-	
+
 	@Autowired
 	@Qualifier("donorBusiness")
 	private IDonorBusiness donorBusiness;
-	
+
 	@GetMapping("/cards/new")
 	public String getCardForm(Model model) {
-		model.addAttribute("card",new BankCard());
+		model.addAttribute("card", new BankCard());
 		return "donor/addCard";
 	}
-	
+
 	@PostMapping("/cards")
-	public String formProcess(Model model,BankCard card) {
+	public String formProcess(Model model, BankCard card) {
 		card.setDonor(userServices.getDonorById(2));
 		donorBusiness.addBankCard(card);
 		return "redirect:/cases";
 	}
-	
-	
-	
 
 }
