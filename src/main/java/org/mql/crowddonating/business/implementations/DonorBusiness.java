@@ -49,9 +49,11 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 		return dondao.save(donation);
 	}
 
-	@Override
+
+    @Override
 	public List<BankCard> getAllByDonor(String userName) {
 		return null;
 	}
+
 
 }
