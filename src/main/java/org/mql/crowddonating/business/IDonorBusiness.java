@@ -10,6 +10,7 @@ import org.mql.crowddonating.models.User;
 public interface IDonorBusiness extends IUserServices{
 	
 	/* *** bank Cards *** */
+	BankCard getCardById(long id);
 	BankCard addBankCard(BankCard bankCard);
 	void deleteBankCard(long id);
 	BankCard updatebankCard(BankCard bankCrd);
@@ -17,5 +18,6 @@ public interface IDonorBusiness extends IUserServices{
 	
 	/* *** dons *** */
 	Donation addDon(Donation donation);
+
 
 }
