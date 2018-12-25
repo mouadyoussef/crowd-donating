@@ -44,7 +44,6 @@ public class DonationController {
 		model.addAttribute("card", new BankCard());
 
 		return "donor/donate";
-
 	}
 
 	@PostMapping("/donor")
@@ -52,5 +51,4 @@ public class DonationController {
 		donorBusiness.addDon(donation);
 		return "redirect:/cases/" + donation.getCase().getSlug();
 	}
-
 }

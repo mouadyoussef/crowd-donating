@@ -23,7 +23,6 @@ public class Donation {
 	@JoinColumn(name = "bank_card_id")
 	private BankCard bankCard;
 	
-	
 	public Donation() {
 		date = new Date();
 		bankCard = new BankCard();
@@ -76,7 +75,4 @@ public class Donation {
 	public void setBankCard(BankCard bankCard) {
 		this.bankCard = bankCard;
 	}
-
-	
-	
 }

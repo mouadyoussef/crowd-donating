@@ -16,8 +16,6 @@ public interface IDonorBusiness extends IUserServices{
 	BankCard updatebankCard(BankCard bankCrd);
 	List<BankCard> getAllByDonor(String userName); // cuz spring sec works with username as principal
 	
-	/* *** dons *** */
+	/* *** donations *** */
 	Donation addDon(Donation donation);
-
-
 }

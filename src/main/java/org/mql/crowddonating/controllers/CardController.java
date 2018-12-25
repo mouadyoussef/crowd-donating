@@ -33,7 +33,6 @@ public class CardController {
 	public String getCardForm(Model model) {
 		model.addAttribute("card", new BankCard());
 		return "donor/addCard";
-		
 	}
 	
 	@PostMapping("/cards")
