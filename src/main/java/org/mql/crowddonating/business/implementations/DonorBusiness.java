@@ -40,8 +40,7 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 
 	@Override
 	public BankCard updatebankCard(BankCard bankCrd) {
-		// TODO Auto-generated method stub
-		return null;
+		return cardDao.save(bankCrd);
 	}
 
 	@Override
@@ -55,5 +54,8 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 		return null;
 	}
 
-
+	@Override
+	public BankCard getCardById(long id) {
+		return cardDao.getOne(id);
+	}
 }
