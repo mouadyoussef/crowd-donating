@@ -22,8 +22,10 @@ public class Donation {
 	@ManyToOne
 	@JoinColumn(name = "bank_card_id")
 	private BankCard bankCard;
-
+	
 	public Donation() {
+		date = new Date();
+		bankCard = new BankCard();
 	}
 
 	public long getId() {
@@ -60,6 +62,14 @@ public class Donation {
 
 	public BankCard getBankCard() {
 		return bankCard;
+	}
+
+	public Case getaCase() {
+		return aCase;
+	}
+
+	public void setaCase(Case aCase) {
+		this.aCase = aCase;
 	}
 
 	public void setBankCard(BankCard bankCard) {

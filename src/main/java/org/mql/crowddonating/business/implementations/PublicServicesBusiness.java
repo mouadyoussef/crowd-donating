@@ -7,11 +7,14 @@ import javax.transaction.Transactional;
 import org.mql.crowddonating.business.IPublicServices;
 import org.mql.crowddonating.dao.CaseRepository;
 import org.mql.crowddonating.dao.EventRepository;
+import org.mql.crowddonating.dao.DonationRepository;
 import org.mql.crowddonating.dao.TypeRepository;
 import org.mql.crowddonating.dao.UserRepository;
 import org.mql.crowddonating.models.Association;
 import org.mql.crowddonating.models.Case;
 import org.mql.crowddonating.models.Domain;
+import org.mql.crowddonating.models.Donation;
+import org.mql.crowddonating.models.Donor;
 import org.mql.crowddonating.models.Event;
 import org.mql.crowddonating.models.Sponsor;
 import org.mql.crowddonating.models.Type;
@@ -34,8 +37,12 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Autowired
 	private UserRepository userDao;
+
 	@Autowired
 	private EventRepository eventDao;
+	
+	@Autowired
+	private DonationRepository donationDao;
 
 	public Page<Case> getAllCases(int page, int size) {
 		return caseDao.findAll(PageRequest.of(page, size));
@@ -135,6 +142,21 @@ public class PublicServicesBusiness implements IPublicServices {
 	@Override
 	public Type getTypeById(long id) {
 		return typeDao.getOne(id);
+	}
+
+	@Override
+	public Donor addDonor(Donor donor) {
+		return userDao.save(donor);
+	}
+
+	@Override
+	public List<Donation> getCaseDonating(Case aCase) {
+		return donationDao.findByACase(aCase);
+	}
+
+	@Override
+	public Donation getDonationById(long id) {
+		return donationDao.findById(id).get();
 	}
 
 }
