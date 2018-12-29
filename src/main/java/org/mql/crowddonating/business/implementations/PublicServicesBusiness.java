@@ -7,11 +7,15 @@ import javax.transaction.Transactional;
 import org.mql.crowddonating.business.IPublicServices;
 import org.mql.crowddonating.dao.CaseRepository;
 import org.mql.crowddonating.dao.SponsorRepository;
+import org.mql.crowddonating.dao.EventRepository;
+import org.mql.crowddonating.dao.DonationRepository;
 import org.mql.crowddonating.dao.TypeRepository;
 import org.mql.crowddonating.dao.UserRepository;
 import org.mql.crowddonating.models.Association;
 import org.mql.crowddonating.models.Case;
 import org.mql.crowddonating.models.Domain;
+import org.mql.crowddonating.models.Donation;
+import org.mql.crowddonating.models.Donor;
 import org.mql.crowddonating.models.Event;
 import org.mql.crowddonating.models.Sponsor;
 import org.mql.crowddonating.models.Type;
@@ -37,6 +41,12 @@ public class PublicServicesBusiness implements IPublicServices {
 	
 	@Autowired
 	private SponsorRepository  sponsorDao;
+
+	@Autowired
+	private EventRepository eventDao;
+	
+	@Autowired
+	private DonationRepository donationDao;
 
 	public Page<Case> getAllCases(int page, int size) {
 		return caseDao.findAll(PageRequest.of(page, size));
@@ -72,14 +82,12 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Override
 	public List<Event> getAllEvents() {
-		// TODO Auto-generated method stub
-		return null;
+		return eventDao.findAll();
 	}
 
 	@Override
 	public Event getEventById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return eventDao.getOne(id);
 	}
 
 	@Override
@@ -97,8 +105,6 @@ public class PublicServicesBusiness implements IPublicServices {
 	public Sponsor getSponsorById(long id) {
 		return sponsorDao.getOne(id);
 	}
-
-	
 
 	@Override
 	public List<Association> getAllAssociations() {
@@ -119,9 +125,8 @@ public class PublicServicesBusiness implements IPublicServices {
 	}
 
 	@Override
-	public Association getAssociationById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User getAssociationById(long id) {
+		return userDao.findById(id).get();
 	}
 
 	@Override
@@ -139,7 +144,20 @@ public class PublicServicesBusiness implements IPublicServices {
 	public Page<Sponsor> getSponsorByName(String name, int page, int size) {
 		return sponsorDao.findByNameLike(name, PageRequest.of(page, size));
 	}
+  
+	public Donor addDonor(Donor donor) {
+		return userDao.save(donor);
+	}
 
-	
+	@Override
+	public List<Donation> getCaseDonating(Case aCase) {
+		return donationDao.findByACase(aCase);
+	}
+
+	@Override
+	public Donation getDonationById(long id) {
+		return donationDao.findById(id).get();
+	}
+
 
 }

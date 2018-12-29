@@ -80,11 +80,10 @@
               <li><a th:href="@{/cases/add}">Add</a></li>
             </ul>
           </li>
-          <li>
-            <a href="javascript:void(0)">Events</a>
-            <ul class="dropdown" style="right: auto; display: none;">
-              <li><a href="contact-us.html">Contact One</a></li>
-              <li><a href="contact-us-2.html">Contact Two</a></li>
+        <li class="active"><a href="javascript:void(0)">Event</a>
+            <ul class="dropdown">
+              <li><a th:href="@{/events}">All</a></li>
+              <li><a th:href="@{/events/add}">Add</a></li>
             </ul>
           </li>
           <li>
@@ -232,6 +231,36 @@
           });
       });
   </script>
+  
+  <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+	    var elems = document.querySelectorAll('.modal');
+	    var instances = M.Modal.init(elems, options);
+	  });
+
+	  // Or with jQuery
+
+	  $(document).ready(function(){
+	    $('.modal').modal();
+	  });
+  </script>
+  
+  
+  <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+	    var elems = document.querySelectorAll('select');
+	    var instances = M.FormSelect.init(elems, options);
+	  });
+
+	  // Or with jQuery
+
+	  $(document).ready(function(){
+	    $('select').formSelect();
+	  });
+  
+	  
+  </script>
+
 
   <script th:src="@{/revolution/js/extensions/revolution.extension.video.min.js}"></script>
   <script th:src="@{/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
