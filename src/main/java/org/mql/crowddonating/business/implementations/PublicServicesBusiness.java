@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.mql.crowddonating.business.IPublicServices;
 import org.mql.crowddonating.dao.CaseRepository;
+import org.mql.crowddonating.dao.SponsorRepository;
 import org.mql.crowddonating.dao.TypeRepository;
 import org.mql.crowddonating.dao.UserRepository;
 import org.mql.crowddonating.models.Association;
@@ -33,6 +34,9 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Autowired
 	private UserRepository userDao;
+	
+	@Autowired
+	private SponsorRepository  sponsorDao;
 
 	public Page<Case> getAllCases(int page, int size) {
 		return caseDao.findAll(PageRequest.of(page, size));
@@ -73,34 +77,28 @@ public class PublicServicesBusiness implements IPublicServices {
 	}
 
 	@Override
-	public Case getEventById(long id) {
+	public Event getEventById(long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Case> getEventByName(String name) {
+	public List<Event> getEventByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Sponsor> getAllSponsors() {
-		// TODO Auto-generated method stub
-		return null;
+		return sponsorDao.findAll();
 	}
 
 	@Override
-	public Case getSponsorById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Sponsor getSponsorById(long id) {
+		return sponsorDao.getOne(id);
 	}
 
-	@Override
-	public List<Case> getSponsorByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<Association> getAllAssociations() {
@@ -136,5 +134,12 @@ public class PublicServicesBusiness implements IPublicServices {
 	public Type getTypeById(long id) {
 		return typeDao.getOne(id);
 	}
+
+	@Override
+	public Page<Sponsor> getSponsorByName(String name, int page, int size) {
+		return sponsorDao.findByNameLike(name, PageRequest.of(page, size));
+	}
+
+	
 
 }

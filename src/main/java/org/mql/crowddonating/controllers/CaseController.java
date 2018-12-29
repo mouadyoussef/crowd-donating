@@ -89,7 +89,6 @@ public class CaseController {
 		map.put("case", aCase);
 		return "cases/details";
 	}
-
 	@DeleteMapping("/cases/{id}")
 	public String delete(@PathVariable long id, Model model) {
 		associationBusiness.deleteCase(id);
@@ -194,13 +193,19 @@ public class CaseController {
 		}
 	}
 
-	@InitBinder
+	/*@InitBinder
 	private void DateBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-		binder.registerCustomEditor(Date.class, editor);
-	}
+		try {
+			System.out.println("test ");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+			CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+			binder.registerCustomEditor(Date.class, editor);
+		}catch (Exception e) {
+			System.out.println("erro");
+		}
 
+	}
+*/
 	@PostConstruct
 	public void createAssoc() {
 		Association assoc = new Association();
