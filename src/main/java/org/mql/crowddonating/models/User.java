@@ -3,12 +3,14 @@ package org.mql.crowddonating.models;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
-    @Id
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
     @Column
@@ -19,7 +21,7 @@ public class User {
     protected String email;
     @Column
     protected String password;
-    @Column
+	@Column
     protected boolean banned;
     @Column
     protected String avatar;
@@ -43,51 +45,60 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public boolean isEnabled() {
+		return isEnabled;
+	}
 
-    public boolean isBanned() {
-        return banned;
-    }
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
 
-    public void setBanned(boolean banned) {
-        this.banned = banned;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getAvatar() {
-        return avatar;
-    }
+	public boolean isBanned() {
+		return banned;
+	}
 
-    public void setAvatar(String avatar) {
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+   public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
     
@@ -116,6 +127,6 @@ public class User {
 		return "User [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password="
 				+ password + ", banned=" + banned + ", avatar=" + avatar + "]";
 	}
-    
-    
+	
+
 }
