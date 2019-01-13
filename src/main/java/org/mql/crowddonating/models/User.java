@@ -1,11 +1,18 @@
 package org.mql.crowddonating.models;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
-    @Id
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
     @Column
@@ -16,75 +23,82 @@ public class User {
     protected String email;
     @Column
     protected String password;
-    @Column
+	@Column
     protected boolean banned;
     @Column
     protected String avatar;
+    @Column
+	private boolean isEnabled;
+	
+	public long getId() {
+		return id;
+	}
 
-    protected User() {
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public boolean isEnabled() {
+		return isEnabled;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public boolean isBanned() {
+		return banned;
+	}
 
-    public boolean isBanned() {
-        return banned;
-    }
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
 
-    public void setBanned(boolean banned) {
-        this.banned = banned;
-    }
+	public String getAvatar() {
+		return avatar;
+	}
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password="
 				+ password + ", banned=" + banned + ", avatar=" + avatar + "]";
 	}
-    
-    
+	
+
 }
