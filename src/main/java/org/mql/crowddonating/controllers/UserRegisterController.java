@@ -10,6 +10,7 @@ import org.mql.crowddonating.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,11 +62,11 @@ public class UserRegisterController {
 			mailMessage.setSubject("Complete Registration!");
 			mailMessage.setFrom("onep.meknes2018@gmail.com");
 			mailMessage.setText("To confirm your account, please click here : "
-			+"http://localhost:8080/confirm-accoun/="+confirmationToken.getConfirmationToken());
+			+"http://localhost:8080/confirm-account/"+confirmationToken.getConfirmationToken());
 			
 			emailSenderService.sendEmail(mailMessage);
 			
-			modelAndView.addObject("emailId", donor.getEmail());
+			modelAndView.addObject("email", donor.getEmail());
 			
 			modelAndView.setViewName("successfulRegisteration");
 		}
@@ -75,8 +76,8 @@ public class UserRegisterController {
 	
 	
 	
-	@RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
+	@RequestMapping(value="/confirm-account/{token}", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @PathVariable("token")String confirmationToken)
 	{
 		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 		
