@@ -1,11 +1,9 @@
 package org.mql.crowddonating.models;
 
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,16 +25,26 @@ public class User {
     protected boolean banned;
     @Column
     protected String avatar;
-    @Column
+    
+    @Column( name = "enabled")
 	private boolean isEnabled;
 	
-	public long getId() {
-		return id;
-	}
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    protected User() {
+    	roles = new HashSet<>();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 
 	public String getName() {
 		return name;
@@ -90,8 +98,28 @@ public class User {
 		return avatar;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+   public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void addRole(Role role) {
+		roles.add(role);
 	}
 	
 	@Override
