@@ -12,6 +12,5 @@ public interface IUserServices {
     
     /* *** user *** */
     Donor getDonorById(long id);
-   
-    
+
 }

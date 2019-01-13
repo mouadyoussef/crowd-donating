@@ -24,7 +24,6 @@ public class UserBusiness extends PublicServicesBusiness implements IUserService
     @Autowired
     private FileRepository fileDao;
 
-    
     @Autowired
     private DonorRepository donorDao;
 

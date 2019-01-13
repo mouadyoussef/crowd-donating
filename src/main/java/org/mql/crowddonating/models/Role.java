@@ -4,30 +4,26 @@ import javax.persistence.*;
 
 @Entity
 public class Role {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@Column
-	private String name;
-
-	public Role() {
-	}
-
-	public long getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
+    private int id;
+    
+    @Column(name = "role")
+    private String role;
+    
+	public int getId() {
 		return id;
 	}
-
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
+	public String getRole() {
+		return role;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setRole(String role) {
+		this.role = role;
 	}
+    
+    
 }

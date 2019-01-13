@@ -1,5 +1,8 @@
 package org.mql.crowddonating.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,8 +23,16 @@ public class User {
     protected boolean banned;
     @Column
     protected String avatar;
+    
+    @Column( name = "enabled")
+	private boolean isEnabled;
+	
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     protected User() {
+    	roles = new HashSet<>();
     }
 
     public long getId() {
@@ -79,7 +90,27 @@ public class User {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+    
+	public boolean isEnabled() {
+		return isEnabled;
+	}
 
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void addRole(Role role) {
+		roles.add(role);
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password="
