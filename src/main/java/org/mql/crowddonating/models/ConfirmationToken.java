@@ -14,6 +14,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
 public class ConfirmationToken {
 	
@@ -33,10 +36,6 @@ public class ConfirmationToken {
     private User user;
 	
 	public ConfirmationToken() {
-	}
-	
-	public ConfirmationToken(User user) {
-		this.user = user;
 		createdDate = new Date();
 		confirmationToken = UUID.randomUUID().toString();
 	}

@@ -24,21 +24,20 @@
     <div class="row">
       <div class="col-sm-12 mt-50">
         <div class="row">
+      
           <form th:action="@{/login}" method="post"
-                enctype="multipart/form-data"
-                class="col-sm-8 col-sm-offset-2">
+                class="col-sm-4 col-sm-offset-4" >
                 
             <div class="form-group">
-                            <label for="name" class="control-label" th:text="#{user.username}"></label>
-              <input type="text" name="username" id="name" required >
+            <label for="name" class="control-label" th:text="#{user.username}"></label>
+              <input type="text" name="username" class="validate form-control"  id="name" required >
+            
             </div>
-
-
-           <div class="form-group">
-                     <label for="pass" class="control-label" th:text="#{user.pass}"></label>
-              <input type="password" name="password" id="pass" required >
+            <div class="form-group">
+             <label for="pass" class="control-label" th:text="#{user.password}"></label>
+              <input type="password" name="password" class="validate form-control"  id="pass" required >
             </div>
-
+           
             <div class="form-group display-flex">
               <div class="flex-1"></div>
               <button class="btn btn-main">

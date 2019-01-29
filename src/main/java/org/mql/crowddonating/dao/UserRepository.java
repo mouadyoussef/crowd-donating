@@ -8,5 +8,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	Donor findByUsername(String userName);
 	Donor findByEmailIgnoreCase(String emailId);
-    
+
 }

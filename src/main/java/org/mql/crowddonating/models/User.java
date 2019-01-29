@@ -3,48 +3,45 @@ package org.mql.crowddonating.models;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected long id;
-    @Column
-    protected String name;
-    @Column
-    protected String username;
-    @Column
-    protected String email;
-    @Column
-    protected String password;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected long id;
 	@Column
-    protected boolean banned;
-    @Column
-    protected String avatar;
-    
-    @Column( name = "enabled")
+	protected String name;
+	@Column
+	protected String username;
+	@Column
+	protected String email;
+	@Column
+	protected String password;
+
+	@Column
+	protected String avatar;
+
+	@Column(name = "enabled")
 	private boolean isEnabled;
-	
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
 
-    protected User() {
-    	roles = new HashSet<>();
-    }
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
 
-    public long getId() {
-        return id;
-    }
+	protected User() {
+		roles = new HashSet<>();
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -77,7 +74,7 @@ public class User {
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -86,28 +83,12 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isBanned() {
-		return banned;
-	}
-
-	public void setBanned(boolean banned) {
-		this.banned = banned;
-	}
-
 	public String getAvatar() {
 		return avatar;
 	}
 
-   public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-    
-	public boolean isEnabled() {
-		return isEnabled;
-	}
-
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public Set<Role> getRoles() {
@@ -121,12 +102,5 @@ public class User {
 	public void addRole(Role role) {
 		roles.add(role);
 	}
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password="
-				+ password + ", banned=" + banned + ", avatar=" + avatar + "]";
-	}
-	
 
 }

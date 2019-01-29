@@ -26,6 +26,9 @@ public class UserBusiness extends PublicServicesBusiness implements IUserService
 
     @Autowired
     private DonorRepository donorDao;
+    
+    @Autowired
+    private UserRepository userDao;
 
     @Override
     public File saveFile(File file) {
@@ -49,6 +52,11 @@ public class UserBusiness extends PublicServicesBusiness implements IUserService
 	@Override
 	public Donor getDonorById(long id) {
 		return donorDao.getOne(id);
+	}
+
+	@Override
+	public User findByEmailIgnoreCase(String email) {
+		return userDao.findByEmailIgnoreCase(email);
 	}
 
 }
