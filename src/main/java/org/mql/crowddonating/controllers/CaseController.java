@@ -271,7 +271,7 @@ public class CaseController {
 //		donor.setPassword(bCryptPasswordEncoder.encode("123"));
 //		publicServices.addDonor(donor);
 
-		//System.out.println("donor ajouté");
+		//System.out.println("donor ajoutÃ©");
 //
 ////        BankCard card = new BankCard();
 ////        card.setCardHolderLastName("Youssef");

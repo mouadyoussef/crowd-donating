@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.mql.crowddonating.business.IPublicServices;
 import org.mql.crowddonating.dao.CaseRepository;
+import org.mql.crowddonating.dao.DomainRepository;
 import org.mql.crowddonating.dao.SponsorRepository;
 import org.mql.crowddonating.dao.EventRepository;
 import org.mql.crowddonating.dao.DonationRepository;
@@ -41,7 +42,7 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Autowired
 	private UserRepository userDao;
-	
+
 	@Autowired
 	private DonorRepository danatorDao;
 
@@ -53,6 +54,9 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Autowired
 	private DonationRepository donationDao;
+  
+	@Autowired
+	private DomainRepository domainDao;
 
 	public Page<Case> getAllCases(int page, int size) {
 		Page<Case> pageCases = caseDao.findAll(PageRequest.of(page, size));
@@ -198,8 +202,7 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Override
 	public List<Domain> getAllDomains() {
-		// TODO Auto-generated method stub
-		return null;
+		return domainDao.findAll();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.mql.crowddonating.models;
 
+
 import java.util.List;
 import java.util.Vector;
 
@@ -49,7 +50,7 @@ public class Donor extends User {
     public void addBankCard(BankCard bankCard) {
     	bankCards.add(bankCard);
     }
-   
+  
 	@Override
 	public String toString() {
 		return "Donor [ " + super.toString() + ", phone=" + phone + ", address=" + address + "]";
