@@ -1,10 +1,14 @@
 package org.mql.crowddonating.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
@@ -16,12 +20,22 @@ public class User {
     protected String email;
     @Column
     protected String password;
-    @Column
-    protected boolean banned;
+
     @Column
     protected String avatar;
 
+    @Column(name = "enabled")
+    private boolean isEnabled;
+
+    @Column(name = "banned")
+    private boolean banned;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
     protected User() {
+        roles = new HashSet<>();
     }
 
     public long getId() {
@@ -56,20 +70,29 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 
     public boolean isBanned() {
         return banned;
     }
 
-    public void setBanned(boolean banned) {
+    public User setBanned(boolean banned) {
         this.banned = banned;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAvatar() {
@@ -80,11 +103,16 @@ public class User {
         this.avatar = avatar;
     }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password="
-				+ password + ", banned=" + banned + ", avatar=" + avatar + "]";
-	}
-    
-    
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
 }
