@@ -49,7 +49,7 @@
 											</figcaption>
 										</figure>
 										<div class="charity-event-grid-text">
-											<p th:text="${event.description}"></p>
+											<p th:text="${ #strings.substring(event.description, 0, 120)}"></p>
 											<ul>
 												<li><i class="fa fa-institution"></i>
 													<p th:text="${event.association.name}"></p></li>
