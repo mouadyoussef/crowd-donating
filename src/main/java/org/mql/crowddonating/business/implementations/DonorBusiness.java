@@ -84,7 +84,8 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 	@Override
 	public void signup(Donor donor) {
 		donor.addRole(roleDao.findByRole("DONATOR"));
-		donor.setAddress("cover.jpg");
+		donor.setAvatar("cover.jpg");
+		donor.setPassword(bCryptPasswordEncoder.encode(donor.getPassword()));
 		donorDao.save(donor);
 		mailConfirmation(donor);
 	}
@@ -92,7 +93,6 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 	@Override
 	public void mailConfirmation(Donor donor) {
 
-		donor.setPassword(bCryptPasswordEncoder.encode(donor.getPassword()));
 		confirmationToken.setUser(donor);
 		confirmationTokenDao.save(confirmationToken);
 

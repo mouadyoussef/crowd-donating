@@ -156,7 +156,7 @@
                     <li sec:authorize="!isAuthenticated()" ><a href="#" th:text="#{menu.signup}"></a>
                       <ul class="charity-dropdown-menu">
                         <li><a th:href="@{/donator/register}" th:text="#{menu.asDonator}"></a></li>
-                        <li><a href="contact-us-view2.html" th:text="#{menu.asAssociation}"></a></li>
+                        <li><a th:href="@{/association/register}" th:text="#{menu.asAssociation}"></a></li>
                       </ul>
                     </li>
                     
