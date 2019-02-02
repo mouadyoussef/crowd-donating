@@ -257,6 +257,9 @@ public class CaseController {
         assoc.setEmail("assoc-123@gmail.com");
         assoc.setUsername("assoc-1");
         assoc.setName("assoc 1");
+        assoc.setDescription("descreption exaaaaaample for caaaaaaaaaaaaaaaaaaaaaaaaaaase");
+        assoc.setPhone("01456569626");
+        assoc.setAddress("Fes Maroc");
         assoc.setCover("cover.jpg");
         assoc.setBanned(false);
         assoc.setAvatar("bd7dec8a-a7ab-4cfb-b1bc-2114a8662c55_akali.png");

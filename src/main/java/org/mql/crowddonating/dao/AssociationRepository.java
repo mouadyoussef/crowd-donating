@@ -1,13 +1,14 @@
 package org.mql.crowddonating.dao;
 
-import java.util.List;
-
+import org.mql.crowddonating.models.Association;
 import org.mql.crowddonating.models.Case;
 import org.mql.crowddonating.models.Donation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DonationRepository extends JpaRepository<Donation, Long> {
+import java.util.List;
+
+public interface AssociationRepository extends JpaRepository<Association, Long> {
 	
-	List<Donation> findByACase(Case aCase);
+
 
 }
