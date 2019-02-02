@@ -97,7 +97,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/confirm-account/{token}")
-	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @PathVariable("token") String confirmationToken) 
+	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @PathVariable("token") String confirmationToken) {
 
 		if (donorBusiness.confirmation(confirmationToken)) {
 			modelAndView.setViewName("auth/accountVerified");
@@ -159,9 +159,7 @@ public class LoginController {
 				uploadDocuments(association, documents);
 			}
 		}
-			modelAndView.setViewName("error/error");
-		}
-			return modelAndView;
+		return modelAndView;
 	}
 
 }
