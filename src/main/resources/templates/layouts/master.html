@@ -130,26 +130,16 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                   <ul class="nav navbar-nav">
-                    <li class="active"><a href="index-2.html" th:text="#{menu.home}"></a>
-                      <ul class="charity-dropdown-menu">
-                        <li><a href="index-2.html">Home One</a></li>
-                        <li><a href="index-two.html">Home Two</a></li>
-                        <li><a href="index.html">Demo Two</a></li>
-                        <li><a href="http://eyecix.com/html/charity/dark-demo/">Dark Demo</a></li>
-                        <li><a href="http://eyecix.com/html/charity/dark-demo2/">Dark Demo2</a></li>
-                        <li><a href="http://eyecix.com/html/charity/charity-rtl/">RTL Demo</a></li>
-                      </ul>
+                    <li class="active"><a th:href="@{/}" th:text="#{menu.home}"></a>
                     </li>
                     <li><a th:href="@{/cases}" th:text="#{menu.causes}"></a>
-                      <ul class="charity-dropdown-menu">
-                        <li><a th:href="@{/cases}">Causes list</a></li>
-                        <li><a th:href="@{/cases/add}">Add cause</a></li>
+                      <ul sec:authorize="hasRole('ROLE_ASSOCIATION')" class="charity-dropdown-menu">
+                        <li><a th:href="@{/cases/add}" th:text="#{cause.add}"></a></li>
                       </ul>
                     </li>
                     <li><a th:href="@{/events}" th:text="#{menu.events}"></a>
-                      <ul class="charity-dropdown-menu">
-                        <li><a th:href="@{/events}">Events list</a></li>
-                        <li><a th:href="@{/events/add}">Add event</a></li>
+                      <ul sec:authorize="hasRole('ROLE_ASSOCIATION')" class="charity-dropdown-menu">
+                        <li><a th:href="@{/events/add}" th:text="#{event.add}"></a></li>
                       </ul>
                     </li>
                    
@@ -160,15 +150,19 @@
                       </ul>
                     </li>
                     
-                  </ul>
-                  
-                  <ul class="nav navbar-nav">
-                    <li class="active">
-                    	<a sec:authorize="!isAuthenticated()" th:href="@{/login}" th:text="#{menu.login}"></a>
-                    	<a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{menu.logout}" > </a>
+                    <li sec:authorize="isAuthenticated()" ><a href="#" th:text="#{menu.account}"></a>
+                      <ul class="charity-dropdown-menu">
+                        <li><a th:href="@{/user/profil}" th:text="#{menu.profile}"></a></li>
+                        <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{menu.logout}" ></a></li>
+                      </ul>
                     </li>
-        
-                   </ul>
+                    
+                     <li class="active">
+                    	<a sec:authorize="!isAuthenticated()" th:href="@{/login}" th:text="#{menu.login}"></a>
+                    </li>
+                    
+                  </ul>
+    
                 </div>
               </nav>
               <!--// Navigation \\-->

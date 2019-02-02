@@ -81,7 +81,7 @@ public class LoginController {
 			modelAndView.setViewName("auth/accountVerified");
 		} else {
 			modelAndView.addObject("message", "The link is invalid or broken!");
-			modelAndView.setViewName("error");
+			modelAndView.setViewName("error/error");
 		}
 		
 		return modelAndView;

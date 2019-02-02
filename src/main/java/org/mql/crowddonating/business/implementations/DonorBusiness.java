@@ -84,7 +84,7 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 	@Override
 	public void signup(Donor donor) {
 		donor.addRole(roleDao.findByRole("DONATOR"));
-		donor.setAddress("cover.jpg");
+		donor.setAvatar("cover.jpg");
 		donorDao.save(donor);
 		mailConfirmation(donor);
 	}
