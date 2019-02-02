@@ -18,6 +18,7 @@ import org.mql.crowddonating.models.File;
 import org.mql.crowddonating.models.Type;
 import org.mql.crowddonating.models.User;
 import org.mql.crowddonating.utilities.Utility;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -28,8 +29,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -94,7 +97,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/confirm-account/{token}")
-	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @PathVariable("token") String confirmationToken) {
+	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @PathVariable("token") String confirmationToken) 
 
 		if (donorBusiness.confirmation(confirmationToken)) {
 			modelAndView.setViewName("auth/accountVerified");
@@ -156,7 +159,9 @@ public class LoginController {
 				uploadDocuments(association, documents);
 			}
 		}
-		return modelAndView;
+			modelAndView.setViewName("error/error");
+		}
+			return modelAndView;
 	}
 
 }

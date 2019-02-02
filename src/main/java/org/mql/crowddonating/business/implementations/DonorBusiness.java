@@ -92,7 +92,6 @@ public class DonorBusiness extends UserBusiness implements IDonorBusiness {
 
 	@Override
 	public void mailConfirmation(Donor donor) {
-
 		confirmationToken.setUser(donor);
 		confirmationTokenDao.save(confirmationToken);
 

@@ -63,7 +63,7 @@ public class CaseController {
 	@Autowired
 	private RoleRepository roleDao;
 
-	@GetMapping(path = {"/", "/cases"})
+	@GetMapping("/cases")
 	public String cases(Model model, @RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "8") int size) {
 		if (page <= 0)
@@ -106,22 +106,6 @@ public class CaseController {
 			response.setStatus(404);
 			return "error/404";
 		}
-
-		List<Donation> donations = publicServices.getCaseDonating(aCase);
-
-		map.put("donatingNumber", donations.size());
-		double total = 0;
-		for (Donation donation : donations) {
-			total += donation.getAmount();
-		}
-
-		double percentage = (total / aCase.getAmount()) * 100;
-		System.err.println(total);
-		System.err.println(aCase.getAmount());
-		System.err.println(percentage);
-		map.put("donationsTotal", total);
-		map.put("donationsPercentage", percentage);
-		map.put("donationsCount", donations.size());
 		map.put("case", aCase);
 		return "cases/details";
 	}
@@ -287,7 +271,7 @@ public class CaseController {
 //		donor.setPassword(bCryptPasswordEncoder.encode("123"));
 //		publicServices.addDonor(donor);
 
-		//System.out.println("donor ajouté");
+		//System.out.println("donor ajoutÃ©");
 //
 ////        BankCard card = new BankCard();
 ////        card.setCardHolderLastName("Youssef");
