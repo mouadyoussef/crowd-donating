@@ -25,6 +25,7 @@ import org.mql.crowddonating.models.Sponsor;
 import org.mql.crowddonating.models.Type;
 import org.mql.crowddonating.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

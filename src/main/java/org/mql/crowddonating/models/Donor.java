@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Donor extends User {
@@ -14,15 +16,14 @@ public class Donor extends User {
 
     @Column
     private String address;
-    
+
     @OneToMany(mappedBy = "donor", fetch = FetchType.LAZY)
-    private List<BankCard> bankCards;
+    private List<Donation> donations;
 
     public Donor() {
-    	bankCards = new Vector<>();
+        donations = new ArrayList<>();
     }
 
-    
     public String getPhone() {
         return phone;
     }
@@ -39,23 +40,27 @@ public class Donor extends User {
         this.address = address;
     }
 
-    public List<BankCard> getBankCards() {
-		return bankCards;
-	}
-    
-    public void setBankCards(List<BankCard> bankCards) {
-		this.bankCards = bankCards;
-	}
-    
-    public void addBankCard(BankCard bankCard) {
-    	bankCards.add(bankCard);
+    public List<Donation> getDonations() {
+        return donations;
     }
-  
-	@Override
-	public String toString() {
-		return "Donor [ " + super.toString() + ", phone=" + phone + ", address=" + address + "]";
-	}
-    
-    
-    
+
+    public Donor setDonations(List<Donation> donations) {
+        this.donations = donations;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Donor{" +
+                "phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", donations=" + donations +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
+    }
 }
