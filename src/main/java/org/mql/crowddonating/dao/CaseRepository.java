@@ -16,7 +16,6 @@ public interface CaseRepository extends JpaRepository<Case, Long> {
     Page<Case> findByNameLike(String name, Pageable pageable);
     Case findBySlug(String slug);
     
-    //@Query("Select Top 3 c From Case c order by c.id descending")
-	//List<Case> findTop3ById();
+	List<Case> findFirst3ByOrderByIdDesc();
     
 }

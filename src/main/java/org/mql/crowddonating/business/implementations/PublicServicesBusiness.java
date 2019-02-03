@@ -235,8 +235,13 @@ public class PublicServicesBusiness implements IPublicServices {
 	}
 
 	@Override
-	public List<Case> findLastNCases(int number) {
-		return null;
+	public List<Case> findLastNCases() {
+		return caseDao.findFirst3ByOrderByIdDesc();
+	}
+
+	@Override
+	public List<Event> getLastNEvents() {
+		return eventDao.findFirst4ByOrderByIdDesc();
 	}
 
 }
