@@ -3,10 +3,12 @@ package org.mql.crowddonating.business.implementations;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.mql.crowddonating.business.IPublicServices;
+import org.mql.crowddonating.dao.AssociationRepository;
 import org.mql.crowddonating.dao.CaseRepository;
 import org.mql.crowddonating.dao.DomainRepository;
 import org.mql.crowddonating.dao.SponsorRepository;
@@ -51,11 +53,14 @@ public class PublicServicesBusiness implements IPublicServices {
 	private SponsorRepository sponsorDao;
 
 	@Autowired
+	private AssociationRepository associationDao;
+
+	@Autowired
 	private EventRepository eventDao;
 
 	@Autowired
 	private DonationRepository donationDao;
-  
+
 	@Autowired
 	private DomainRepository domainDao;
 
@@ -83,37 +88,66 @@ public class PublicServicesBusiness implements IPublicServices {
 		return aCase;
 	}
 
-	public Map<String, Object> globalStats(){
+	public Map<String, Object> globalStats() {
 		Map<String, Object> stats = new HashMap<>();
-		
+
 		double globalAmount = 0;
 		double globalRaised = 0;
 		double percentageRaised = 0;
 		int globalNbreDonations = 0;
 		int solvedCauses = 0;
-		
+
 		List<Case> cases = caseDao.findAll();
 		for (Case aCase : cases) {
 			globalAmount += aCase.getAmount();
 			globalNbreDonations += aCase.getNbreDonations();
-			
+
 			aCase = calculCaseStats(aCase);
-			if(aCase.getAmountRaised() >= aCase.getAmount())
+			if (aCase.getAmountRaised() >= aCase.getAmount())
 				solvedCauses++;
-			
+
 			globalRaised += aCase.getAmountRaised();
-			
+
 		}
-		
+
 		stats.put("globalAmount", globalAmount);
 		stats.put("globalRaised", globalRaised);
 		stats.put("percentageRaised", globalRaised * 100 / globalAmount);
-		stats.put("globalTotalDonations",  globalNbreDonations);
+		stats.put("globalTotalDonations", globalNbreDonations);
 		stats.put("nbreDonators", donationDao.findAll().size());
 		stats.put("solvedCauses", solvedCauses);
 		return stats;
 	}
-	
+
+	public Map<String, Object> globalStatsForAssociation(List<Case> cases) {
+		Map<String, Object> stats = new HashMap<>();
+
+		double globalAmount = 0;
+		double globalRaised = 0;
+		double percentageRaised = 0;
+		int globalNbreDonations = 0;
+		int solvedCauses = 0;
+
+		for (Case aCase : cases) {
+			globalAmount += aCase.getAmount();
+			globalNbreDonations += aCase.getNbreDonations();
+
+			aCase = calculCaseStats(aCase);
+			if (aCase.getAmountRaised() >= aCase.getAmount())
+				solvedCauses++;
+
+			globalRaised += aCase.getAmountRaised();
+
+		}
+
+		stats.put("globalAmount", globalAmount);
+		stats.put("globalRaised", globalRaised);
+		stats.put("percentageRaised", globalRaised * 100 / globalAmount);
+		stats.put("globalTotalDonations", globalNbreDonations);
+		stats.put("nbreDonators", donationDao.findAll().size());
+		stats.put("solvedCauses", solvedCauses);
+		return stats;
+	}
 	public Case getCaseById(long id) {
 		Case aCase = caseDao.findById(id).get();
 
@@ -180,8 +214,7 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Override
 	public List<Association> getAllAssociations() {
-		// TODO Auto-generated method stub
-		return null;
+		return associationDao.findAll();
 	}
 
 	@Override
@@ -243,6 +276,13 @@ public class PublicServicesBusiness implements IPublicServices {
 	@Override
 	public List<Event> getLastNEvents() {
 		return eventDao.findFirst4ByOrderByIdDesc();
+	}
+
+	@Override
+	public List<Case> getCasesByAssociation(long id) {
+		List<Case> cases = caseDao.findAll().stream().filter(aCase -> aCase.getAssociation().getId() == id)
+				.collect(Collectors.toList());
+		return cases;
 	}
 
 }
