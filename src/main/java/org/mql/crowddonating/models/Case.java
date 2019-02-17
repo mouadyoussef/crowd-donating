@@ -60,7 +60,7 @@ public class Case {
     private double amountRaised;
     
     @Transient
-    private double percentageRaised = 0;
+    private double percentageRaised;
     
     @Transient
     private int nbreDonations;
