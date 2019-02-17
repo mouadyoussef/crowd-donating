@@ -128,55 +128,57 @@
 
 
 <div class="charity-main-content">
-		<!--// Main Section \\-->
-		<div class="charity-main-section charity-minus-margin">
-			<div class="container">
-				<div class="row">
+  <!--// Main Section \\-->
+  <div class="charity-main-section charity-minus-margin">
+    <div class="container">
+      <div class="row">
 
-					<div class="col-md-12">
-						<div class="charity-fancy-title">
-							<div class="charity-fancy-title-wrap">
-								<h2 th:text="#{cause.causes}"></h2>
-							</div>
-						</div>
-						<!--// CauseGrid \\-->
-						<div class="charity-cause charity-cause-simplegrid">
-							<ul class="row">
-								<li class="col-md-4" th:each="case:${cases}">
-									<figure>
-										<a th:href="@{'/cases/' + ${case.slug}}"> 
-										<img th:src="@{'/images/cases/' + ${case.image}}" style="height:250px;"/>
-										</a>
-										 <figcaption> 
-										 	<a th:href="@{'/cases/' + ${case.slug}}" th:text="|${case.nbreDonations} #{cause.donationsNbre}|"><i class="fa fa-users"></i></a> </figcaption>
-									</figure>
-									<section>
-										<h4>
-											<a th:href="@{'/cases/' + ${case.slug}}" th:text="${case.name}"></a>
-										</h4>
-                    <th:block th:if="${#strings.length(case.description) > 90}">
-                      <p th:text="${#strings.substring(case.description ,0 ,90)}"></p>
-                    </th:block>
-                    <th:block th:if="${#strings.length(case.description) <= 90}">
-                      <p th:text="${case.description}"></p>
-                    </th:block>
-									</section>
-									<div class="skillst">
-										<div class="progressbar1" th:data-width="${#numbers.formatDecimal(case.percentageRaised, 0, 2)}" th:data-target="${case.amount}"></div>
-									</div>
-									<div class="cause-simplegrid-bottom">
-										<a th:if="${case.amountRaised < case.amount}" th:href="@{'/cases/' + ${case.slug} + '/donate'}"
-											class="charity-donate-btn charity-bgcolor" th:text="#{cause.donate}"></a> 
-											<span th:text="${case.amountRaised + '/' + case.amount}"></span>
-									</div>
-								</li>
-							</ul>			
-						</div>
-					</div>	
-				</div>
-			</div>				
-		</div>
-		</div>
+        <div class="col-md-12">
+          <div class="charity-fancy-title">
+            <div class="charity-fancy-title-wrap">
+              <h2 th:text="#{cause.causes}"></h2>
+            </div>
+          </div>
+          <!--// CauseGrid \\-->
+          <div class="charity-cause charity-cause-simplegrid">
+            <ul class="row">
+              <li class="col-md-4" th:each="case:${cases}">
+                <figure>
+                  <a th:href="@{'/cases/' + ${case.slug}}">
+                    <img th:src="@{'/images/cases/' + ${case.image}}" style="height:250px;"/>
+                  </a>
+                  <figcaption>
+                    <a th:href="@{'/cases/' + ${case.slug}}" th:text="|${case.nbreDonations} #{cause.donationsNbre}|"><i
+                        class="fa fa-users"></i></a></figcaption>
+                </figure>
+                <section>
+                  <h4>
+                    <a th:href="@{'/cases/' + ${case.slug}}" th:text="${case.name}"></a>
+                  </h4>
+                  <th:block th:if="${#strings.length(case.description) > 90}">
+                    <p th:text="${#strings.substring(case.description ,0 ,90)}"></p>
+                  </th:block>
+                  <th:block th:if="${#strings.length(case.description) <= 90}">
+                    <p th:text="${case.description}"></p>
+                  </th:block>
+                </section>
+                <div class="skillst">
+                  <div class="progressbar1" th:data-width="${#numbers.formatDecimal(case.percentageRaised, 0, 2)}"
+                       th:data-target="${case.amount}"></div>
+                </div>
+                <div class="cause-simplegrid-bottom">
+                  <a th:if="${case.amountRaised < case.amount}" th:href="@{'/cases/' + ${case.slug} + '/donate'}"
+                     class="charity-donate-btn charity-bgcolor" th:text="#{cause.donate}"></a>
+                  <span th:text="${case.amountRaised + '/' + case.amount}"></span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <th:block th:replace="~{layouts/master::footer}"/>
