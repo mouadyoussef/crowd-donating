@@ -15,11 +15,12 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="charity-page-title">
-						<h1>Association's Profile</h1>
+						<h1 th:text="#{association.profile}"></h1>
 					</div>
 					<ul class="charity-breadcrumb">
-						<li><a th:href="#{'/association/profile'}">Association</a></li>
-						<li class="active">Update</li>
+						<li><a th:href="#{'/association/profile'}"
+							th:text="#{association}"></a></li>
+						<li class="active" th:text="#{update}"></li>
 					</ul>
 				</div>
 			</div>
@@ -38,7 +39,7 @@
 
 
 							<div class="form-group">
-								<label for="name" th:text="#{user.name}">Name</label> <input
+								<label for="name" th:text="#{user.name}"></label> <input
 									type="text" class="form-control" name="name" id="name"
 									th:value="${association.name}" th:field="*{name}" required>
 							</div>
@@ -79,8 +80,9 @@
 							</div>
 
 							<div th:class="${'form-group'}">
-								<label for="domains" class="select2-tags-label control-label">Domains</label>
-								<select name="associationDomains" id="domains" multiple
+								<label for="domains" class="select2-tags-label control-label"
+									th:text="#{domains}"></label> <select name="associationDomains"
+									id="domains" multiple
 									th:class="${'form-control select2-tags validate'}">
 									<option th:each="domain:${association.domains}"
 										th:value="${domain.label}" th:text="${domain.label}" selected></option>
@@ -90,8 +92,9 @@
 
 							</div>
 							<div class="form-group">
-								<label for="documents">Documents</label> <input type="file"
-									name="documents" id="documents" class="form-control" multiple>
+								<label for="documents" th:text="#{documents}"></label> <input
+									type="file" name="documents" id="documents"
+									class="form-control" multiple>
 							</div>
 						</form>
 
@@ -103,7 +106,7 @@
 									th:text="${file.path}" target="_blank"></a> <a
 									class="delete-file" href="#"
 									th:onclick="'event.preventDefault(); document.getElementById(\'delete-file-form-' + ${file.id} + '\').submit();'">
-										<i class="material-icons red-text darken-1">close</i>
+										<i class="material-icons red-text darken-1" th:text="#{close}"></i>
 								</a>
 									<form th:action="@{'/cases/files/' + ${file.id}}"
 										th:method="delete" th:id="'delete-file-form-' + ${file.id}"></form>
@@ -111,22 +114,19 @@
 							</ul>
 						</div>
 					</div>
+
 				</div>
-
 			</div>
-
 			<div class="row">
 				<div class="col-sm-12 mt-50">
 					<div class="row">
 						<div class="form-group display-flex">
 							<div class="flex-1"></div>
-							<button class="btn btn-main">Valider</button>
+							<button class="btn btn-main" th:text="#{valider}"></button>
 						</div>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 
 
