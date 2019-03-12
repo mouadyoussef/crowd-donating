@@ -139,15 +139,23 @@ public class AssociationBusiness extends UserBusiness implements IAssociationBus
 	}
 
 	@Override
-	public void deleteProject(int id) {
+	public void deleteProject(long id) {
 		projectDao.deleteById(id);
 	}
 
 	@Override
-	public boolean disableProject(int id, boolean state) {
+	public boolean disableProject(long id, boolean state) {
 		Project project = projectDao.findById(id).get();
 		project.setDisabled(state);
 		projectDao.save(project);
+		return state;
+	}
+
+	@Override
+	public boolean urgentACase(long id, boolean state) {
+		Case c = caseDao.findById(id).get();
+		c.setUrgent(state);
+		caseDao.save(c);
 		return state;
 	}
 }
