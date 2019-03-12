@@ -68,8 +68,6 @@ public class Project {
 		files.add(file);
 	}
 
-	
-
 	public long getId() {
 		return id;
 	}

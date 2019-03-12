@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
-
 @Service
 @Transactional
 public class AssociationBusiness extends UserBusiness implements IAssociationBusiness {
@@ -121,8 +119,13 @@ public class AssociationBusiness extends UserBusiness implements IAssociationBus
 		association.setAvatar("cover.jpg");
 		association.setPassword(bCryptPasswordEncoder.encode(association.getPassword()));
 		associationDao.save(association);
-
 	}
+		@Override
+		public Project deleteProject(long id) {
+			Project p = projectDao.findById(id).orElse(null);
+			projectDao.deleteById(id);
+			return p;
+		}
 
 	@Override
 	public String addProject(Project project) {
@@ -137,12 +140,7 @@ public class AssociationBusiness extends UserBusiness implements IAssociationBus
 	public String updateProject(Project project) {
 		return addProject(project);
 	}
-
-	@Override
-	public void deleteProject(long id) {
-		projectDao.deleteById(id);
-	}
-
+  
 	@Override
 	public boolean disableProject(long id, boolean state) {
 		Project project = projectDao.findById(id).get();
