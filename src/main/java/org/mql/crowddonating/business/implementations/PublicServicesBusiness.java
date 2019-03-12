@@ -334,7 +334,7 @@ public class PublicServicesBusiness implements IPublicServices {
 
 	@Override
 	public Project getProject(String slug) {
-		return projectDao.findBySlug(slug);
+		return calculProjectStats(projectDao.findBySlug(slug));
 	}
 
 	@Override
@@ -415,6 +415,20 @@ public class PublicServicesBusiness implements IPublicServices {
 		stats.put("nbreDonators", donationDao.findAll().size());
 		stats.put("solvedCauses", p_solvedProjects);
 		return stats;
+	}
+	
+	private Project calculProjectStats(Project project) {
+		double totalRaised = 0;
+		double percentageRased = 0;
+
+		List<Donation> donations = donationDao.findByProject(project);
+		for (Donation donation : donations) {
+			totalRaised += donation.getAmount();
+		}
+		project.setAmountRaised(totalRaised);
+		project.setNbreDonations(donations.size());
+		project.setPercentageRaised(totalRaised * 100 / project.getAmount());
+		return project;
 	}
 
 }
